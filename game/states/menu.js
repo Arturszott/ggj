@@ -12,6 +12,7 @@ Menu.prototype = {
     this.sprite.anchor.setTo(0.5, 0.5);
 
     var testText = "You\'re a gamedev wannabe star. The greatest adventure awaits you in Poznan, Poland, where the Game Jam starts in a DAY."
+    //var testText = "You\'re a gamedev wannabe star."
 
     this.mText = new MultilineText(this.game, 30, 300, testText, {
       maxWidth: this.game.width - 60

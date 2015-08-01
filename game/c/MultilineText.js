@@ -3,14 +3,14 @@ function Text(game, x, y, text, options) {
 
 	this.game = game;
 	this.text = text;
-	this.maxLetterWidth = 9,
+	this.maxLetterWidth = 11;
 
-	this.textObj = game.add.bitmapText(x, y, 'pxl', text, 14);
+	this.textObj = game.add.bitmapText(x, y, 'pxl', text, 8);
 	
 	options = options || {};
 
 	if (options.maxWidth) {
-		this.applyMaxWidth(options.maxWidth);
+		this.set(this.applyMaxWidthSize(options.maxWidth, text));
 	}
 }
 
@@ -54,6 +54,25 @@ Text.prototype = {
 			this.applyMaxWidth(max, '', steps);
 		} else {
 			console.log(steps);
+		}
+	},
+	applyMaxWidthSize: function (max, text, steps) {
+        this.set(text);
+
+        if(this.textObj.width < max) {
+            console.log(steps);
+            return text;
+        }
+
+        steps = steps || 0;
+        steps++;
+
+		var matches = this.text.substring(0, max / this.maxLetterWidth).match(/\s[a-zA-Z]*[^\s]*$/);
+
+		if (matches !== null) {
+            console.log(text.substring(matches.index).length, max)
+
+            return this.text.substr(0, matches.index) + '\n' + this.applyMaxWidthSize(max, text.substring(matches.index), steps);
 		}
 	},
 	update: function () {
