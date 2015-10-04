@@ -10,7 +10,7 @@ function Text(game, x, y, text, options) {
 	options = options || {};
 
 	if (options.maxWidth) {
-		this.set(this.applyMaxWidthSize(options.maxWidth, text));
+		this.applyMaxWidth(options.maxWidth);
 	}
 }
 
@@ -52,15 +52,12 @@ Text.prototype = {
 			this.text = this.text + '\n' + rest.trim();
 			this.update();
 			this.applyMaxWidth(max, '', steps);
-		} else {
-			console.log(steps);
 		}
 	},
 	applyMaxWidthSize: function (max, text, steps) {
         this.set(text);
 
         if(this.textObj.width < max) {
-            console.log(steps);
             return text;
         }
 
@@ -70,8 +67,6 @@ Text.prototype = {
 		var matches = this.text.substring(0, max / this.maxLetterWidth).match(/\s[a-zA-Z]*[^\s]*$/);
 
 		if (matches !== null) {
-            console.log(text.substring(matches.index).length, max)
-
             return this.text.substr(0, matches.index) + '\n' + this.applyMaxWidthSize(max, text.substring(matches.index), steps);
 		}
 	},
@@ -81,6 +76,9 @@ Text.prototype = {
 	set: function (text) {
 		this.text = text;
 		this.update();
+	},
+	destroy: function(){
+		this.textObj.destroy();
 	}
 }
 

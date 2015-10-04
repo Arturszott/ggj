@@ -1,39 +1,39 @@
-// Generated on 2014-03-28 using generator-phaser-official 0.0.8-rc-2
 'use strict';
+
 var config = require('./config.json');
 var _ = require('underscore');
 _.str = require('underscore.string');
+var serveStatic = require('serve-static');
 
 // Mix in non-conflict functions to Underscore namespace if you want
 _.mixin(_.str.exports());
 
-var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
+  return serveStatic(require('path').resolve(dir));
 };
- 
+
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
- 
+
   grunt.initConfig({
     watch: {
       scripts: {
         files: [
             'game/**/*.js',
+            'assets/data/**/*.json',
             '!game/main.js'
         ],
         options: {
           spawn: false,
-          livereload: LIVERELOAD_PORT
+          livereload: 35729
         },
         tasks: ['build']
       }
     },
     connect: {
       options: {
-        port: 9000,
+        port: 8080,
         // change this to '0.0.0.0' to access the server from outside
         hostname: 'localhost'
       },
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
-              lrSnippet,
+              require('connect-livereload')(), // <--- here
               mountFolder(connect, 'dist')
             ];
           }
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        path: 'http://localhost:9000'
+        path: 'http://localhost:8080'
       }
     },
     copy: {
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       }
     }
   });
-  
+
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
   grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
   grunt.registerTask('default', ['serve']);
@@ -82,6 +82,7 @@ module.exports = function (grunt) {
     var stateFiles = grunt.file.expand('game/states/*.js');
     var gameStates = [];
     var statePattern = new RegExp(/(\w+).js$/);
+
     stateFiles.forEach(function(file) {
       var state = file.match(statePattern)[1];
       if (!!state) {
