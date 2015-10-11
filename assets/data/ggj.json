@@ -2,9 +2,9 @@
 	"stories": [
 		{
 			"key": "",
-			"text": "You're a gamedev wannabe star. The greatest adventure awaits you in Poznan, where the Game Jam starts in a DAY",
+			"text": "You're a gamedev wannabe star. Game Jam starts in a DAY",
 			"opts": [
-				"1: Go for an adventure"
+				"1: Go for an adventure!"
 			]
 		},
 		{
@@ -12,13 +12,12 @@
 			"text": "You arrive to Poznan a few hours before the Great Game Jam",
 			"opts": [
 				"a: Go to free book stand",
-				"b: Go to the shisha club",
-				"c: Go to the Game Jam Place"
+				"b: Go to the shisha club"
 			]
 		},
 		{
 			"key": "1a",
-			"text": "There are some book in the stand.",
+			"text": "There are some books in the stand.",
 			"opts": [
 				"a: Pick programming for dummies.",
 				"b: Pick Andrzej Mazur's HTML 5 Game Dev book",
@@ -37,33 +36,71 @@
 			"key": "1aaa",
 			"text": "You're riding a bike.",
 			"opts": [
-				"1aaa1: Ride fast!"
+        "1: Ride slow!",
+        "2: Ride fast!"
 			]
 		},
 		{
 			"key": "1aaa1",
-			"type": "evented",
-			"text": "You're ridin slow...",
+			"type": "direct",
+			"text": "You're riding slow...",
 			"events": [
-				"You pass a new Jesus Christ monument",
-				"You dried fountain known also as a best skating place in Poznan",
-				"You pass the Kaponiera digsite with the new,repairs ending date of 2019"
+				"You pass a new Jesus Christ monument"
 			],
-			"opts": [
-				"2: Enter the Game Jam building"
-			]
+      "opts": [
+        "1aaa11: Keep riding..."
+      ]
 		},
+    {
+      "key": "1aaa11",
+      "type": "direct",
+      "text": "You pass the dried fountain known also as a best skatepark in the city",
+      "opts": [
+        "1aaa111: Keep riding..."
+      ]
+    },
+    {
+      "key": "1aaa111",
+      "type": "direct",
+      "text": "You pass the Kaponiera digsite with the new, repairs ending date of 2019",
+      "opts": [
+        "2: Keep riding..."
+      ]
+    },
 		{
 			"key": "1aaa2",
-			"type": "evented",
+			"type": "direct",
 			"text": "You're riding fast!",
 			"events": [
-				"You smash the protesting group against Golgota Picnic",
-				"You've successfully passed the new repaired bridge after it collapsed behind you"
+
 			],
 			"opts": [
-				"2: Enter the Game Jam building"
+				"1aaa21: Keep riding fast"
 			]
-		}
+		},
+    {
+      "key": "1aaa21",
+      "type": "direct",
+      "text": "You smash the protesting group against Golgota Picnic",
+      "opts": [
+        "1aaa211: Keep riding fast..."
+      ]
+    },
+    {
+      "key": "1aaa211",
+      "type": "direct",
+      "text": "You've successfully passed the new repaired bridge after before it collapsed again",
+      "opts": [
+        "2: Keep riding fast..."
+      ]
+    },
+    {
+      "key": "2",
+      "text": "You're standing before the Game Jam Building",
+      "opts": [
+        "a: Start crying, you won't make it.",
+        "b: Open the door and have fun!"
+      ]
+    }
 	]
 }

@@ -35,7 +35,7 @@ module.exports = function (grunt) {
       options: {
         port: 8080,
         // change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -69,11 +69,16 @@ module.exports = function (grunt) {
       build: {
         src: ['game/main.js'],
         dest: 'dist/js/game.js'
+      },
+      options: {
+        browserifyOptions: {
+          debug: true
+        }
       }
     }
   });
 
-  grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
+  grunt.registerTask('build', ['buildBootstrapper', 'browserify','newer:copy']);
   grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
   grunt.registerTask('default', ['serve']);
   grunt.registerTask('prod', ['build', 'copy']);
